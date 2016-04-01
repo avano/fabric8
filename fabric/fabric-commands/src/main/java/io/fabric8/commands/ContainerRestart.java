@@ -11,6 +11,8 @@ import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.felix.service.command.Function;
 
+import org.osgi.framework.BundleContext;
+
 import io.fabric8.api.FabricService;
 import io.fabric8.api.scr.ValidatingReference;
 import io.fabric8.boot.commands.support.AbstractCommandComponent;
@@ -40,8 +42,11 @@ public class ContainerRestart extends AbstractCommandComponent {
 	@Reference(referenceInterface = ContainerCompleter.class, bind = "bindContainerCompleter", unbind = "unbindContainerCompleter")
 	private ContainerCompleter containerCompleter; // dummy field
 
+	private BundleContext bundleContext;
+
 	@Activate
-	void activate() {
+	void activate(BundleContext bundleContext) {
+		this.bundleContext = bundleContext;
 		activateComponent();
 	}
 
@@ -54,7 +59,7 @@ public class ContainerRestart extends AbstractCommandComponent {
 	public Action createNewAction() {
 		assertValid();
 		CuratorFramework curator = CuratorFrameworkLocator.getCuratorFramework();
-		return new ContainerRestartAction(fabricService.get(), curator);
+		return new ContainerRestartAction(fabricService.get(), curator, bundleContext);
 	}
 
 	void bindFabricService(FabricService fabricService) {

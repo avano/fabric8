@@ -350,4 +350,11 @@ public interface FabricManagerMBean {
     String webConsoleUrl();
 
     String gitUrl();
+
+	/**
+     * Sets the system property on the container.
+     * @param key key
+     * @param value value
+     */
+    void setSystemProperty(String key, String value);
 }

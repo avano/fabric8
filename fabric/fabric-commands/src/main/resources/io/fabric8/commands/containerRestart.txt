@@ -6,4 +6,4 @@ Container restart executes three phases:
 
 * Execute start command on every container
 
-If the current container should and can be restarted, the appropriate flag will be set and you need to shut down the container manually.
+If the current container should and can be restarted, the appropriate flag will be set and the container will be automatically restarted.

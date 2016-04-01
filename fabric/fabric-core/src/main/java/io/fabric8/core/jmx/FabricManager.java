@@ -1355,6 +1355,11 @@ public final class FabricManager implements FabricManagerMBean {
     }
 
     @Override
+    public void setSystemProperty(String key, String value) {
+        System.setProperty(key, value);
+    }
+
+    @Override
     public String getZookeeperUrl() {
         return fabricService.getZookeeperUrl();
     }
